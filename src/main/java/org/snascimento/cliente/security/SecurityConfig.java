@@ -30,6 +30,7 @@ public class SecurityConfig {
                         .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**", "/actuator/**").permitAll()
                         // Permite acesso apenas para ADMIN nos endpoints /api/admin/**
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/api/cliente/**").hasAnyRole("ADMIN", "USER")
                         // Permite POST para /api/auth/** sem autenticação (login, registro, etc.)
                         .requestMatchers(HttpMethod.POST, "/api/auth/**").permitAll()
                         // Requer autenticação para todos os outros endpoints

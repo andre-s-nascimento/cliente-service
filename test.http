@@ -41,3 +41,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBlbWFpbC5jb20iLCJyb
 
 GET http://localhost:8081/api/admin/clientes
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBlbWFpbC5jb20iLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3NDY4MjE0ODAsImV4cCI6MTc0NjgyNTA4MH0.IP0D_2Q2uNsORRzbgJxpfalGR---5K5939ZK-Vjy2QY
+
+###
+
+PUT http://localhost:8081/api/cliente/nome
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmRyZUBlbWFpbC5jb20iLCJyb2xlIjoiVVNFUiIsImlhdCI6MTc0NjgyNDkxOSwiZXhwIjoxNzQ2ODI4NTE5fQ.AcurYTULjIJIjspqwllBa1RdwrzuKgncut8caC5cOdE
+Content-Type: application/json
+
+{
+  "nome": "Andre SNas"
+}
