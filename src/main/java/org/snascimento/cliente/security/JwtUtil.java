@@ -21,12 +21,13 @@ public class JwtUtil {
         return Keys.hmacShaKeyFor(secret.getBytes());
     }
 
-    public String generateToken(String email) {
+    public String generateToken(String email, String role) {
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + expiration);
 
         return Jwts.builder()
                 .setSubject(email)
+                .claim("role", role)
                 .setIssuedAt(now)
                 .setExpiration(expiryDate)
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
@@ -34,24 +35,28 @@ public class JwtUtil {
     }
 
     public String extractEmail(String token) {
-        return Jwts.parserBuilder()
-                .setSigningKey(getSigningKey())
-                .build()
-                .parseClaimsJws(token)
-                .getBody()
-                .getSubject();
+        return extractClaims(token).getSubject();
+    }
+
+    public String extractRole(String token) {
+        return (String) extractClaims(token).get("role");
     }
 
     public boolean isValid(String token) {
         try {
-            Jwts.parserBuilder()
-                    .setSigningKey(getSigningKey())
-                    .build()
-                    .parseClaimsJws(token);
+            extractClaims(token);
             return true;
         } catch (JwtException | IllegalArgumentException e) {
             return false;
         }
+    }
+
+    private Claims extractClaims(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(getSigningKey())
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
     }
 
 }

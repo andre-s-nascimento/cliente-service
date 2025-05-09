@@ -2,8 +2,19 @@ POST http://localhost:8081/api/auth/register
 content-type: application/json
 
 {
-  "nome": "João2",
-  "email": "joao2@email2.com",
+  "nome": "admin",
+  "email": "admin@email.com",
+  "senha": "123456",
+  "role": "ADMIN"
+}
+
+###
+
+POST http://localhost:8081/api/auth/login
+content-type: application/json
+
+{
+  "email": "andre@email.com",
   "senha": "123456"
 }
 
@@ -13,6 +24,16 @@ POST http://localhost:8081/api/auth/login
 content-type: application/json
 
 {
-  "email": "joao@email.com",
+  "email": "admin@email.com",
   "senha": "123456"
 }
+
+###
+
+GET http://localhost:8081/api/auth/admin/area
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmRyZUBlbWFpbC5jb20iLCJyb2xlIjoiVVNFUiIsImlhdCI6MTc0NjgxNzkwMiwiZXhwIjoxNzQ2ODIxNTAyfQ.u_Sk0O3oVcokl9BKASdjVAZPPMT9CHH_xdzVPmjbOjQ
+
+###
+
+GET http://localhost:8081/api/cliente/dados
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBlbWFpbC5jb20iLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3NDY4MjA2NjksImV4cCI6MTc0NjgyNDI2OX0.K92txM2MTAjntF5PrEluNi5DDQmA0rhrovQC7DTYHbc

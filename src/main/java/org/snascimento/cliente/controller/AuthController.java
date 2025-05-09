@@ -7,6 +7,7 @@ import org.snascimento.cliente.dto.LoginRequest;
 import org.snascimento.cliente.dto.RegisterRequest;
 import org.snascimento.cliente.service.AuthService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -27,5 +28,11 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest request) {
         return ResponseEntity.ok(authService.login(request));
+    }
+
+    @GetMapping("/admin/area")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<String> areaAdmin() {
+        return ResponseEntity.ok("Área restrita para ADMIN");
     }
 }
