@@ -43,7 +43,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
                 Cliente cliente = clienteRepository.findByEmail(email).orElse(null);
                 if (cliente != null) {
-                    var authorities = Collections.singletonList(new SimpleGrantedAuthority(role));
+                    var authorities = Collections.singletonList(new SimpleGrantedAuthority("ROLE_"+role));
 
                     UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
                             cliente, null, authorities);

@@ -30,9 +30,4 @@ public class AuthController {
         return ResponseEntity.ok(authService.login(request));
     }
 
-    @GetMapping("/admin/area")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<String> areaAdmin() {
-        return ResponseEntity.ok("Área restrita para ADMIN");
-    }
 }
