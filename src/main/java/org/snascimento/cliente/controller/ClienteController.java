@@ -4,12 +4,16 @@ import org.snascimento.cliente.dto.ClienteDTO;
 import org.snascimento.cliente.model.Cliente;
 import org.snascimento.cliente.model.Role;
 import org.snascimento.cliente.repository.ClienteRepository;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/cliente")
+@SecurityRequirement(name = "bearerAuth") // Requer autenticação via Bearer Token
 public class ClienteController {
 
     private final ClienteRepository clienteRepository;
@@ -18,9 +22,11 @@ public class ClienteController {
         this.clienteRepository = clienteRepository;
     }
 
+    @Operation(summary = "Retorna os dados do cliente autenticado", description = "Este endpoint retorna os dados do cliente autenticado. Para usuários do tipo 'ADMIN', retorna todos os dados, incluindo o 'role'. Para usuários 'USER', retorna todos os dados exceto a senha e o 'role'.")
     @GetMapping("/dados")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ClienteDTO getClienteDados(@AuthenticationPrincipal Cliente cliente) {
+    public ClienteDTO getClienteDados(
+            @Parameter(description = "Cliente autenticado", required = true) @AuthenticationPrincipal Cliente cliente) {
         // Verifica se o cliente é ADMIN
         if (cliente.getRole() != null && cliente.getRole() == Role.ADMIN) {
             // Se for ADMIN, retorna todos os dados, incluindo o role
