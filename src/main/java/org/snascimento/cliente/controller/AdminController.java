@@ -26,7 +26,7 @@ public class AdminController {
         this.adminService = adminService;
     }
 
-    @Operation(summary = "Lista todos os clientes cadastrados, exceto a senha", description = "Este endpoint lista todos os clientes cadastrados no sistema, sem a senha. Apenas usuários com o papel 'ADMIN' podem acessar essa informação.")
+    @Operation(summary = "Lista todos os clientes cadastrados", description = "Este endpoint lista todos os clientes cadastrados no sistema. Apenas usuários com o papel 'ADMIN' podem acessar essa informação.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Clientes listados com sucesso"),
             @ApiResponse(responseCode = "403", description = "Acesso não autorizado, necessário papel 'ADMIN'")
