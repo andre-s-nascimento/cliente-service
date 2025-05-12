@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+/JavaConcatenator.class
+/JavaConcatenator.java
+/saida_concatenada.java

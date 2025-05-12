@@ -2,6 +2,7 @@ package org.snascimento.cliente.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import org.snascimento.cliente.model.Role;
 
@@ -18,7 +19,8 @@ public class RegisterRequest {
   @Size(min = 6, message = "A senha precisa ter pelo menos 6 caracteres")
   private String senha;
 
-  @NotBlank private Role role;
+  @NotNull(message = "O papel é obrigatório")
+  @NotNull private Role role;
 
   public Role getRole() {
     return role;
