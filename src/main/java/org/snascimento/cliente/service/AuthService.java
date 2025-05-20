@@ -3,6 +3,9 @@ package org.snascimento.cliente.service;
 import org.snascimento.cliente.dto.AuthResponse;
 import org.snascimento.cliente.dto.LoginRequest;
 import org.snascimento.cliente.dto.RegisterRequest;
+import org.snascimento.cliente.exceptions.ClienteException;
+import org.snascimento.cliente.exceptions.NotFoundException;
+import org.snascimento.cliente.exceptions.UnauthorizedException;
 import org.snascimento.cliente.model.Cliente;
 import org.snascimento.cliente.repository.ClienteRepository;
 import org.snascimento.cliente.security.JwtUtil;
@@ -25,7 +28,7 @@ public class AuthService {
 
   public AuthResponse register(RegisterRequest request) {
     if (clienteRepository.findByEmail(request.getEmail()).isPresent()) {
-      throw new RuntimeException("Email já cadastrado");
+      throw new ClienteException("Email já cadastrado");
     }
 
     Cliente cliente = new Cliente();
@@ -42,13 +45,12 @@ public class AuthService {
   }
 
   public AuthResponse login(LoginRequest request) {
-    Cliente cliente =
-        clienteRepository
-            .findByEmail(request.getEmail())
-            .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+    Cliente cliente = clienteRepository
+        .findByEmail(request.getEmail())
+        .orElseThrow(() -> new NotFoundException("Usuário não encontrado"));
 
     if (!passwordEncoder.matches(request.getSenha(), cliente.getSenha())) {
-      throw new RuntimeException("Credenciais inválidas");
+      throw new UnauthorizedException("Credenciais inválidas");
     }
 
     String token = jwtUtil.generateToken(cliente.getEmail(), cliente.getRole().name());
