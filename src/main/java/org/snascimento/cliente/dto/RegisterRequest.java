@@ -20,7 +20,8 @@ public class RegisterRequest {
   private String senha;
 
   @NotNull(message = "O papel é obrigatório")
-  @NotNull private Role role;
+  @NotNull
+  private Role role;
 
   public Role getRole() {
     return role;

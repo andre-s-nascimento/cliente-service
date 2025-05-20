@@ -42,7 +42,8 @@ public class AuthService {
       cliente.setNome(request.getNome());
       cliente.setEmail(request.getEmail());
       cliente.setSenha(passwordEncoder.encode(request.getSenha()));
-      cliente.setRole(request.getRole()); // Converter para maiúsculo para evitar erros de case-sensitive
+      cliente.setRole(
+          request.getRole()); // Converter para maiúsculo para evitar erros de case-sensitive
 
       clienteRepository.save(cliente);
 
@@ -58,9 +59,10 @@ public class AuthService {
   public AuthResponse login(LoginRequest request) {
     logger.info("Tentativa de login para o email: {}", request.getEmail());
     try {
-      Cliente cliente = clienteRepository
-          .findByEmail(request.getEmail())
-          .orElseThrow(() -> new NotFoundException("Usuário não encontrado"));
+      Cliente cliente =
+          clienteRepository
+              .findByEmail(request.getEmail())
+              .orElseThrow(() -> new NotFoundException("Usuário não encontrado"));
 
       if (!passwordEncoder.matches(request.getSenha(), cliente.getSenha())) {
         throw new UnauthorizedException("Credenciais inválidas");
